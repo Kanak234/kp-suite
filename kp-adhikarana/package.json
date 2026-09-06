@@ -1,0 +1,95 @@
+{
+  "name": "kp-adhikarana",
+  "displayName": "KP Adhikarana \u2014 Governance & Access Engine",
+  "description": "Role-based access control, security policies, and workspace governance for CS projects.",
+  "version": "1.0.0",
+  "publisher": "KANAKPRABHAKAR",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "adhikarana",
+    "kanak-prabhakar",
+    "vs-code-extension"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kanak-prabhakar/vscode-extensions"
+  },
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "adhikarana.checkPermissions",
+        "title": "Adhikarana: Check Workspace Permissions",
+        "category": "Adhikarana"
+      },
+      {
+        "command": "adhikarana.openDashboard",
+        "title": "Adhikarana: Open Dashboard",
+        "category": "Adhikarana"
+      }
+    ],
+    "configuration": {
+      "title": "Adhikarana",
+      "properties": {
+        "adhikarana.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable Adhikarana features"
+        },
+        "adhikarana.lockedFiles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "**/package.json",
+            "**/tsconfig.json",
+            "**/vitest.config.ts"
+          ],
+          "description": "Glob patterns for files that should not be edited"
+        },
+        "adhikarana.warningFiles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "**/extension.ts"
+          ],
+          "description": "Glob patterns for files that trigger a warning on save"
+        },
+        "adhikarana.strictMode": {
+          "type": "boolean",
+          "default": false,
+          "description": "Configuration setting for strictMode"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "echo bundled",
+    "build": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "package": "vsce package --no-dependencies --skip-license",
+    "clean": "rm -rf dist *.vsix"
+  },
+  "devDependencies": {
+    "@types/minimatch": "^6.0.0",
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^2.22.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0"
+  },
+  "dependencies": {
+    "minimatch": "^9.0.9"
+  },
+  "icon": "images/icon.png"
+}

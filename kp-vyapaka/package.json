@@ -1,0 +1,165 @@
+{
+  "name": "kp-vyapaka",
+  "displayName": "KP Vyapaka \u2014 Environment Doctor",
+  "description": "Comprehensive development environment diagnostics for CS students. Detects compilers, interpreters, build tools, and debuggers with actionable fix recommendations.",
+  "version": "1.0.1",
+  "publisher": "KANAKPRABHAKAR",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Debuggers",
+    "Other"
+  ],
+  "keywords": [
+    "environment",
+    "diagnostics",
+    "toolchain",
+    "compiler",
+    "student",
+    "education"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kanak-prabhakar/vscode-extensions"
+  },
+  "bugs": {
+    "url": "https://github.com/kanak-prabhakar/vscode-extensions/issues"
+  },
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "vyapaka.diagnose",
+        "title": "Vyapaka: Diagnose Environment",
+        "category": "Vyapaka"
+      },
+      {
+        "command": "vyapaka.openDashboard",
+        "title": "Vyapaka: Open Dashboard",
+        "category": "Vyapaka"
+      },
+      {
+        "command": "vyapaka.generateReport",
+        "title": "Vyapaka: Generate Diagnostic Report",
+        "category": "Vyapaka"
+      }
+    ],
+    "views": {
+      "vyapaka": [
+        {
+          "type": "webview",
+          "id": "vyapaka.dashboard",
+          "name": "Vyapaka Dashboard"
+        }
+      ],
+      "explorer": [
+        {
+          "id": "vyapaka.toolchainView",
+          "name": "Vyapaka Toolchains",
+          "when": "vyapaka.enabled"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "vyapaka",
+          "title": "Vyapaka"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Vyapaka",
+      "properties": {
+        "vyapaka.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable Vyapaka environment diagnostics"
+        },
+        "vyapaka.autoDiagnoseOnStartup": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically run diagnostics on startup"
+        },
+        "vyapaka.checkInterval": {
+          "type": "number",
+          "default": 3600000,
+          "minimum": 60000,
+          "description": "Interval in milliseconds for periodic diagnostics"
+        },
+        "vyapaka.customToolchains": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "command": {
+                "type": "string"
+              },
+              "versionArgs": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "name",
+              "command"
+            ]
+          },
+          "default": [],
+          "description": "Custom toolchains to check"
+        }
+      }
+    },
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "vyapaka.diagnose",
+          "when": "vyapaka.enabled"
+        },
+        {
+          "command": "vyapaka.openDashboard",
+          "when": "vyapaka.enabled"
+        },
+        {
+          "command": "vyapaka.generateReport",
+          "when": "vyapaka.enabled"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "vyapaka.diagnose",
+          "group": "vyapaka",
+          "when": "vyapaka.enabled"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "echo bundled",
+    "build": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "package": "vsce package --no-dependencies --skip-license",
+    "clean": "rm -rf dist *.vsix"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^2.22.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0",
+    "@vitest/coverage-v8": "^1.0.0"
+  },
+  "dependencies": {},
+  "icon": "images/icon.png"
+}

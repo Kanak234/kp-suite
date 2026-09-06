@@ -1,0 +1,144 @@
+{
+  "name": "kp-kriyasala",
+  "displayName": "KP Kriyasala \u2014 Code Execution Lab",
+  "description": "Real graphical code execution environment for CS students. Supports C, C++, Java, Python, JavaScript, and TypeScript with language adapters and process execution engine.",
+  "version": "1.0.1",
+  "publisher": "KANAKPRABHAKAR",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Debuggers",
+    "Other"
+  ],
+  "keywords": [
+    "execution",
+    "code execution",
+    "compiler",
+    "student",
+    "education",
+    "laboratory"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kanak-prabhakar/vscode-extensions"
+  },
+  "bugs": {
+    "url": "https://github.com/kanak-prabhakar/vscode-extensions/issues"
+  },
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "kriyasala.execute",
+        "title": "Kriyasala: Execute Code",
+        "category": "Kriyasala"
+      },
+      {
+        "command": "kriyasala.openDashboard",
+        "title": "Kriyasala: Open Dashboard",
+        "category": "Kriyasala"
+      },
+      {
+        "command": "kriyasala.stopExecution",
+        "title": "Kriyasala: Stop Execution",
+        "category": "Kriyasala"
+      },
+      {
+        "command": "kriyasala.restartExecution",
+        "title": "Kriyasala: Restart Execution",
+        "category": "Kriyasala"
+      }
+    ],
+    "views": {
+      "kriyasala": [
+        {
+          "type": "webview",
+          "id": "kriyasala.dashboard",
+          "name": "Kriyasala Dashboard"
+        }
+      ],
+      "explorer": [
+        {
+          "id": "kriyasala.executionView",
+          "name": "Kriyasala Execution",
+          "when": "kriyasala.enabled"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "kriyasala",
+          "title": "Kriyasala"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Kriyasala",
+      "properties": {
+        "kriyasala.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable Kriyasala code execution"
+        },
+        "kriyasala.defaultTimeout": {
+          "type": "number",
+          "default": 30000,
+          "minimum": 1000,
+          "description": "Default execution timeout in milliseconds"
+        },
+        "kriyasala.maxOutputSize": {
+          "type": "number",
+          "default": 10485760,
+          "description": "Maximum output size in bytes"
+        }
+      }
+    },
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "kriyasala.execute",
+          "when": "kriyasala.enabled"
+        },
+        {
+          "command": "kriyasala.openDashboard",
+          "when": "kriyasala.enabled"
+        },
+        {
+          "command": "kriyasala.stopExecution",
+          "when": "kriyasala.enabled"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "kriyasala.execute",
+          "group": "kriyasala",
+          "when": "kriyasala.enabled"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "echo bundled",
+    "build": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "package": "vsce package --no-dependencies --skip-license",
+    "clean": "rm -rf dist *.vsix"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^2.22.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0",
+    "@vitest/coverage-v8": "^1.0.0"
+  },
+  "dependencies": {},
+  "icon": "images/icon.png"
+}

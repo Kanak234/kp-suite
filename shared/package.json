@@ -1,0 +1,19 @@
+{
+  "name": "@kanak-prabhakar/shared",
+  "version": "1.0.0",
+  "description": "Shared utilities for the KP student-tooling VS Code extensions.",
+  "license": "MIT",
+  "author": "Kanak Prabhakar",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./types": "./dist/types.js",
+    "./logging": "./dist/logging.js",
+    "./process": "./dist/process.js",
+    "./config": "./dist/config.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  }
+}

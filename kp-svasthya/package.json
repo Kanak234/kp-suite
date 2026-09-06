@@ -1,0 +1,87 @@
+{
+  "name": "kp-svasthya",
+  "displayName": "KP Svasthya \u2014 System Health Monitor",
+  "description": "Real-time CPU/memory profiling, extension diagnostic logger, and health engine.",
+  "version": "1.0.1",
+  "publisher": "KANAKPRABHAKAR",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "svasthya",
+    "kanak-prabhakar",
+    "vs-code-extension"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kanak-prabhakar/vscode-extensions"
+  },
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "svasthya.checkHealth",
+        "title": "Svasthya: Check System Health",
+        "category": "Svasthya"
+      },
+      {
+        "command": "svasthya.openDashboard",
+        "title": "Svasthya: Open Dashboard",
+        "category": "Svasthya"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "svasthya",
+          "title": "Svasthya"
+        }
+      ]
+    },
+    "views": {
+      "svasthya": [
+        {
+          "type": "webview",
+          "id": "svasthya.dashboard",
+          "name": "Health Dashboard"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Svasthya",
+      "properties": {
+        "svasthya.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable Svasthya features"
+        },
+        "svasthya.interval": {
+          "type": "number",
+          "default": 5000,
+          "description": "Configuration setting for interval"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "echo bundled",
+    "build": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "package": "vsce package --no-dependencies --skip-license",
+    "clean": "rm -rf dist *.vsix"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^2.22.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0"
+  },
+  "dependencies": {},
+  "icon": "images/icon.png"
+}
