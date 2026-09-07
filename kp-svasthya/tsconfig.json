@@ -1,12 +1,11 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "rootDir": "./src",
-    "baseUrl": ".",
+    "rootDirs": ["./src", "../shared/src"],
     "paths": {
       "@kanak-prabhakar/shared/*": [
-        "../../shared/src/*"
+        "../shared/src/*"
       ]
     }
   },
